@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Form.css';
-import { Link, useHistory } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from './axios';
 
-function EditForm(props) {
-  const blog = props.location.state.blog;
+function EditForm() {
+  const location = useLocation();  // Sử dụng useLocation để truy cập state
+  const blog = location.state.blog;  // Lấy blog từ state
   const [title, setTitle] = useState(blog.title);
   const [category, setCategory] = useState(blog.category);
   const [image, setImage] = useState(blog.image);
   const [body, setBody] = useState(blog.body);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();  // Thay thế useHistory bằng useNavigate
 
   const updateHandler = (e) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ function EditForm(props) {
         setCategory('');
         setImage('');
         setBody('');
-        history.push(`/blogs/${blog?._id}`);
+        navigate(`/blogs/${blog?._id}`);  // Thay thế history.push bằng navigate
       })
       .catch((error) => {
         setError(error.message);
@@ -83,7 +84,7 @@ function EditForm(props) {
           Update
         </button>
       </div>
-      <img src="" alt="Blog" className="form__image" />
+      <img src={image} alt="Blog" className="form__image" />
     </form>
   );
 }

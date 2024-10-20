@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Form.css';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from './axios';
 
 function CreateForm() {
@@ -10,7 +10,7 @@ function CreateForm() {
   const [body, setBody] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();  // Thay useHistory bằng useNavigate
 
   const createHandler = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function CreateForm() {
         setCategory('');
         setImage('');
         setBody('');
-        history.push('/');
+        navigate('/');  // Thay history.push bằng navigate
       })
       .catch((error) => {
         setError(error.message);
@@ -42,9 +42,8 @@ function CreateForm() {
           id="title"
           placeholder="Title"
           autoComplete="off"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <input
           className="form__input"
@@ -53,9 +52,8 @@ function CreateForm() {
           id="category"
           placeholder="Category"
           autoComplete="off"
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         />
         <input
           className="form__input"
@@ -64,9 +62,8 @@ function CreateForm() {
           id="image"
           placeholder="Image"
           autoComplete="off"
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
         />
         <textarea
           className="form__input"
@@ -74,15 +71,14 @@ function CreateForm() {
           id="body"
           rows="7"
           placeholder="Body"
-          onChange={(e) => {
-            setBody(e.target.value);
-          }}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
         ></textarea>
         <button className="form__button" type="submit">
           Create
         </button>
       </div>
-      <img src="" alt="Blog" className="form__image" />
+      <img src={image} alt="Blog" className="form__image" />
     </form>
   );
 }

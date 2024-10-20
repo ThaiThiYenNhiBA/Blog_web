@@ -43,7 +43,7 @@ function Detail() {
         <h2 className="detail__heading">More Blogs</h2>
         <div className="detail__blogs">
           {blogs?.map((blog) => (
-            blog?._id != id && <Blog blog={blog} />
+            blog?._id !== id && <Blog blog={blog} />
           ))}
         </div>
       </div>

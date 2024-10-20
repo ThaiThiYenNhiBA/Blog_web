@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './BlogDetail.css';
-import blog from './images/room1.jpg';
-import author from './images/person.jpg';
-import { Link, useHistory } from 'react-router-dom';
+import blogImage from './images/room1.jpg';
+import authorImage from './images/person.jpg';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from './axios';
 
 function BlogDetail({ blog }) {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate(); // Thay useHistory bằng useNavigate
 
   const deleteHandler = () => {
     axios
       .delete(`/${blog?._id}`)
       .then((response) => {
         setMessage(response.data.message);
-        history.push('/');
+        navigate('/'); // Thay history.push bằng navigate
       })
       .catch((error) => {
         setError(error.message);
       });
   };
+
   return (
     <div className="blogDetail">
       <div className="blogDetail__row1">
@@ -28,24 +29,12 @@ function BlogDetail({ blog }) {
           <h4 className="blogDetail__createOrEdit">Create or Edit</h4>
           <div className="blogDetail__options">
             <Link to="/blogs/new">
-              <i
-                className="fa fa-plus blogDetail__create"
-                aria-hidden="true"
-              ></i>
+              <i className="fa fa-plus blogDetail__create" aria-hidden="true"></i>
             </Link>
-            <Link
-              to={{ pathname: `/blogs/${blog?._id}/edit`, state: { blog } }}
-            >
-              <i
-                className="fa fa-pencil-square-o blogDetail__edit"
-                aria-hidden="true"
-              ></i>
+            <Link to={`/blogs/${blog?._id}/edit`} state={{ blog }}>
+              <i className="fa fa-pencil-square-o blogDetail__edit" aria-hidden="true"></i>
             </Link>
-            <i
-              className="fa fa-trash blogDetail__delete"
-              aria-hidden="true"
-              onClick={deleteHandler}
-            ></i>
+            <i className="fa fa-trash blogDetail__delete" aria-hidden="true" onClick={deleteHandler}></i>
           </div>
         </div>
         <div className="blogDetail__blog">
@@ -53,8 +42,8 @@ function BlogDetail({ blog }) {
           <h1 className="blogDetail__title">{blog?.title}</h1>
           <div className="blogDetail__author">
             <img
-              src={author}
-              alt="Fatima Mujahid"
+              src={authorImage}
+              alt="Author"
               className="blogDetail__authorImage"
             />
             <div>
@@ -67,7 +56,7 @@ function BlogDetail({ blog }) {
       <div className="blogDetail__row2">
         <img
           className="blogDetail__image"
-          src={blog?.image}
+          src={blog?.image || blogImage}
           alt={blog?.title}
         />
       </div>

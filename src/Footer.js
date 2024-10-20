@@ -7,7 +7,7 @@ function Footer() {
       <div className="footer__info">
         <span className="footer__logo">BLOG</span>
         <p className="footer__copyright">
-          © 2021 Inspired by UDX Blog Dribbble Developed by Nhi 
+          © 2024 Inspired by UDX Blog Dribbble Developed by Nhi 
         </p>
       </div>
       <div className="footer__socialHandles">

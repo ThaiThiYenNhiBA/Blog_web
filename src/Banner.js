@@ -28,7 +28,7 @@ function Banner() {
           />
           <div>
             <p className="banner__authorName">Thái Thị Yến Nhi</p>
-            <p className="banner__date">September 10, 2021</p>
+            <p className="banner__date">September 10, 2024</p>
           </div>
         </div>
       </div>
